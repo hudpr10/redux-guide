@@ -1,44 +1,40 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-// Components
 import Cart from "../cart/index";
-
-// Styles
 import * as Styles from "./styles";
 
-// Utilities
+import { useSelector, useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "../../redux/user/actions";
 
 function Header() {
   const [cartIsVisible, setCartIsVisible] = useState(false);
 
-  const dispatch = useDispatch();
+  // Quero currentUser pegar do userReducer
+  const { currentUser } = useSelector(rootReducer => rootReducer.user);
+  console.log(currentUser);
 
-  const { currentUser } = useSelector((state) => state.userReducer);
+  // Faz o dispatch no userReducer (é uma action!)
+  const dispatch = useDispatch();
+  const handleLoginClick = () => {
+    dispatch(loginUser({ name: "Hudson", email: "hudson@email.com" }));
+  }
+
+  // Faz o dispatch no userReducer (é uma action!)
+  const handleLogoutClick = () => {
+    dispatch(logoutUser());
+  }
 
   const handleCartClick = () => {
     setCartIsVisible(true);
-  };
-
-  const handleLoginClick = () => {
-    dispatch(loginUser({ name: "Felipe Rocha", email: "felipe@rocha.com" }));
-  };
-
-  const handleLogoutClick = () => {
-    dispatch(logoutUser());
   };
 
   return (
     <Styles.Container>
       <Styles.Logo>Redux Shopping</Styles.Logo>
       <Styles.Buttons>
-        {currentUser ? (
-          <div onClick={handleLogoutClick}>Sair</div>
-        ) : (
-          <div onClick={handleLoginClick}>Login</div>
-        )}
-
+        {currentUser 
+          ? <div onClick={handleLogoutClick}>Sair</div> 
+          : <div onClick={handleLoginClick}>Login</div> 
+        }
         <div onClick={handleCartClick}>Carrinho</div>
       </Styles.Buttons>
 
