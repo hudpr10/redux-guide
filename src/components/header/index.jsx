@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Cart from "../cart/index";
 import * as Styles from "./styles";
 
@@ -10,7 +10,11 @@ function Header() {
 
   // Quero currentUser pegar do userReducer
   const { currentUser } = useSelector(rootReducer => rootReducer.user);
-  console.log(currentUser);
+  const { products } = useSelector(rootReducer => rootReducer.cart);
+
+  const productsCount = useMemo(() => {
+    return products.reduce((acc, curr) => acc + curr.quantity, 0);
+  }, [products]);
 
   // Faz o dispatch no userReducer (é uma action!)
   const dispatch = useDispatch();
@@ -35,7 +39,7 @@ function Header() {
           ? <div onClick={handleLogoutClick}>Sair</div> 
           : <div onClick={handleLoginClick}>Login</div> 
         }
-        <div onClick={handleCartClick}>Carrinho</div>
+        <div onClick={handleCartClick}>Carrinho ({productsCount})</div>
       </Styles.Buttons>
 
       <Cart isVisible={cartIsVisible} setIsVisible={setCartIsVisible} />

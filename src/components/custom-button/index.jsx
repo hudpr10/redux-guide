@@ -3,9 +3,9 @@ import React from "react";
 // Styles
 import * as Styles from "./styles";
 
-const CustomButton = ({ children, startIcon, ...rest }) => {
+const CustomButton = ({ children, startIcon, handleClick, ...rest }) => {
   return (
-    <Styles.CustomButtonContainer {...rest}>
+    <Styles.CustomButtonContainer {...rest} onClick={handleClick}>
       {startIcon && <Styles.IconContainer>{startIcon}</Styles.IconContainer>}
 
       {children}
