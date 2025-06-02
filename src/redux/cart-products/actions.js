@@ -2,7 +2,7 @@ import CartTypes from "./cart-types";
 
 export const NewItem = (product) => ({
   type: CartTypes.NEW,
-  payload: { ...product, quantity: 1 }
+  payload: { ...product }
 });
 
 export const RemoveItem = (id) => ({

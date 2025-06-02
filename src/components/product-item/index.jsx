@@ -7,20 +7,13 @@ import CustomButton from "../custom-button/index";
 import * as Styles from "./styles";
 
 import { useDispatch, useSelector } from "react-redux"; 
-import { NewItem } from "../../redux/cart-products/actions";
+import { newItem } from "../../redux/cart-products/slice";
 
 const ProductItem = ({ product }) => {
   const dispatch = useDispatch();
-  const { products } = useSelector(rootReducer => rootReducer.cart);
 
   function addProductToCart() {
-    // const item = products.find(item => item.name === product.name);
-    
-    // if(item) {
-    //   item.quantity += 1;
-    // } else {
-      dispatch(NewItem(product))
-    // }
+    dispatch(newItem(product))
   }
 
   return (
